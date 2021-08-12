@@ -26,7 +26,7 @@ export default {
       CalendarActions.SET_CURRENT_WEEK
     ]),
     ...mapActions('file', [FileActions.FETCH_FILE]),
-    ...mapActions('app', [AppActions.INIT_APP])
+    ...mapActions('app', [AppActions.INIT_APP, AppActions.TOGGLE_SEARCH])
   },
   computed: {
     ...mapGetters('calendar', [CalendarGetters.GET_CURRENT_DATE]),
@@ -35,6 +35,10 @@ export default {
   mounted() {
     ipcRenderer.on('open-settings', () => {
       this.$router.push('settings', () => {})
+    })
+
+    ipcRenderer.on('search-activated', () => {
+      this.toggleSearch()
     })
 
     ipcRenderer.on('set-today', () => {
@@ -61,7 +65,7 @@ export default {
     this.initApp()
     this.fetchFile(this.getCurrentDate)
 
-    this.$store.subscribe((mutation) => {
+    this.$store.subscribe(mutation => {
       if (mutation.type === `calendar/${CalendarActions.SET_DATE}`) {
         this.fetchFile(this.getCurrentDate)
         this.setCurrentWeek()

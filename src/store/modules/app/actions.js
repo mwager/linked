@@ -30,5 +30,9 @@ export default {
     setTheme(theme).then(() => {
       context.commit(Mutations.SET_THEME, theme)
     })
+  },
+
+  [Actions.TOGGLE_SEARCH](context) {
+    context.commit(Mutations.TOGGLE_SEARCH)
   }
 }

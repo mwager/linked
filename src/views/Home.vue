@@ -3,6 +3,7 @@
     <main class="flex flex-col items-stretch min-h-screen">
       <app-header />
       <editor />
+      <search v-if="isSearchVisible" />
     </main>
   </Layout>
 </template>
@@ -11,8 +12,10 @@
 import Layout from './Layout'
 import AppHeader from '@/components/app-header'
 import Editor from '@/components/editor'
+import Search from '@/components/search'
 
 import { mapGetters, mapActions } from 'vuex'
+import { Getters as AppGetters } from '@/store/modules/app/types'
 import {
   Getters as CalendarGetters,
   Actions as CalendarActions
@@ -22,7 +25,8 @@ export default {
   components: {
     Layout,
     AppHeader,
-    Editor
+    Editor,
+    Search
   },
   methods: {
     ...mapActions('calendar', [
@@ -31,7 +35,8 @@ export default {
     ])
   },
   computed: {
-    ...mapGetters('calendar', [CalendarGetters.GET_CURRENT_DATE])
+    ...mapGetters('calendar', [CalendarGetters.GET_CURRENT_DATE]),
+    ...mapGetters('app', [AppGetters.IS_SEARCH_VISIBLE])
   }
 }
 </script>

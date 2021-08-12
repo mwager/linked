@@ -7,5 +7,9 @@ export default {
 
   [Mutations.SET_THEME](state, theme) {
     state.theme = theme
+  },
+
+  [Mutations.TOGGLE_SEARCH](state) {
+    state.isSearchVisible = !state.isSearchVisible
   }
 }

@@ -7,5 +7,9 @@ export default {
 
   [Getters.GET_THEME](state) {
     return state.theme
+  },
+
+  [Getters.IS_SEARCH_VISIBLE](state) {
+    return state.isSearchVisible
   }
 }

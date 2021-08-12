@@ -5,6 +5,7 @@
   "description": "Link your thoughts to days.",
   "author": "André Weller <info@lost.design> (https://lost.design/)",
   "scripts": {
+    "start": "yarn electron:serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",

@@ -129,6 +129,13 @@ const template = [
           const { shell } = require('electron')
           await shell.openExternal('https://uselinked.com/')
         }
+      },
+      {
+        label: 'Search',
+        accelerator: process.platform === 'darwin' ? 'Cmd+F' : 'Shift+F',
+        click: () => {
+          win.webContents.send('search-activated')
+        }
       }
     ]
   }
@@ -210,7 +217,7 @@ app.on('ready', async () => {
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (isWindows) {
-    process.on('message', (data) => {
+    process.on('message', data => {
       if (data === 'graceful-exit') {
         app.quit()
       }
@@ -253,13 +260,13 @@ ipcMain.handle('FETCH_FILE', async (event, args) => {
   if (!fs.existsSync(filePath)) {
     file = fs.promises.mkdir(dataPath, { recursive: true }).then(() => {
       return fs.promises.writeFile(filePath, getDefaultData()).then(() => {
-        return fs.promises.readFile(filePath, 'utf-8').then((data) => {
+        return fs.promises.readFile(filePath, 'utf-8').then(data => {
           return JSON.parse(data)
         })
       })
     })
   } else {
-    file = fs.promises.readFile(filePath, 'utf-8').then((data) => {
+    file = fs.promises.readFile(filePath, 'utf-8').then(data => {
       return JSON.parse(data)
     })
   }
@@ -286,7 +293,7 @@ ipcMain.handle('SAVE_FILE', (event, args) => {
  * Construct the base path where files are stored and loaded from
  */
 const basePath = app.getPath('documents')
-const getFilePath = (year) => {
+const getFilePath = year => {
   return `${basePath}/linked/${year}`
 }
 
